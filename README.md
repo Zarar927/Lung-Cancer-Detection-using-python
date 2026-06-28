@@ -1,229 +1,219 @@
-# 🩺 Skin Cancer Classification using Deep Learning (CNN)
+# 🫁 Lung Cancer Risk Prediction using Machine Learning
 
 ## 📌 Project Overview
 
-Skin cancer is one of the most common forms of cancer worldwide. Early detection significantly increases the chances of successful treatment. This project presents a **Convolutional Neural Network (CNN)** model developed using **TensorFlow** and **Keras** to automatically classify skin lesion images into two categories:
+This project focuses on predicting **lung cancer risk levels (Low, Medium, High)** using machine learning techniques based on patient health records and lifestyle factors. The dataset contains **1000 patient records** with **24 medical and environmental features**.
 
-* **Benign (Non-Cancerous)**
-* **Malignant (Cancerous)**
-
-The model is trained on a dataset of dermoscopic skin images using a deep learning approach. Image preprocessing, CNN architecture, model checkpointing, and performance visualization are implemented to achieve reliable classification accuracy.
+The goal is to analyze risk factors such as smoking, air pollution, genetic risk, and symptoms, and build models that can accurately classify lung cancer severity levels.
 
 ---
 
 ## 🎯 Objectives
 
-* Build an automated skin cancer classification system.
-* Perform image preprocessing and normalization.
-* Train a Convolutional Neural Network (CNN).
-* Save the best-performing model during training.
-* Evaluate model performance using accuracy and loss curves.
+* Perform data analysis on lung cancer dataset
+* Check and handle missing values
+* Visualize class distribution
+* Train machine learning models for classification
+* Compare performance of multiple algorithms
+* Predict lung cancer risk level (Low / Medium / High)
 
 ---
 
-# 🛠️ Technologies Used
+## 📂 Dataset Information
 
-* Python 3.12
-* TensorFlow
-* Keras
+* Total Records: **1000**
+* Total Features: **26 columns**
+* Target Variable: **Level**
+* Classes:
+
+  * 🟢 Low
+  * 🟡 Medium
+  * 🔴 High
+
+### 📊 Features include:
+
+* Age, Gender
+* Air Pollution
+* Smoking & Passive Smoking
+* Alcohol Use
+* Genetic Risk
+* Chronic Lung Disease
+* Obesity, Fatigue
+* Chest Pain, Coughing of Blood
+* Shortness of Breath, Wheezing
+* And many more medical symptoms
+
+---
+
+## 🧹 Data Preprocessing
+
+### ✅ Missing Values Check
+
+No missing values were found in the dataset:
+
+```python
+pf.isnull().sum()
+```
+
+✔ Result: **All columns contain 0 missing values**
+
+---
+
+## 📊 Exploratory Data Analysis (EDA)
+
+### 🔹 Dataset Overview
+
+```python
+pf.info()
+```
+
+* 1000 entries
+* 24 numerical features
+* 2 categorical features (Patient Id, Level)
+
+---
+
+## 🥧 Target Variable Distribution
+
+A pie chart was used to visualize the distribution of lung cancer levels.
+
+### 📈 Class Distribution Graph
+
+📌 **Observation:**
+
+* Dataset is fairly balanced
+* All three classes have similar representation
+* This helps improve model fairness and reduces bias
+
+---
+
+## 🧠 Machine Learning Models Used
+
+Three classification algorithms were used:
+
+### 1️⃣ Support Vector Machine (SVM)
+
+```python
+S = svm.SVC()
+```
+
+* Best performing model
+* Achieved **100% testing accuracy**
+* Excellent decision boundary separation
+
+---
+
+### 2️⃣ K-Nearest Neighbors (KNN)
+
+```python
+knn = KNeighborsClassifier()
+```
+
+* Achieved **100% training accuracy**
+* Sensitive to dataset structure
+* May require testing validation to confirm generalization
+
+---
+
+### 3️⃣ Bernoulli Naive Bayes
+
+```python
+B = BernoulliNB()
+```
+
+* Achieved **89% testing accuracy**
+* Performs well but assumes feature independence
+* Slightly lower performance compared to SVM
+
+---
+
+## 📊 Model Performance Comparison
+
+| Model       | Accuracy         | Result                 |
+| ----------- | ---------------- | ---------------------- |
+| SVM         | **100% (Test)**  | 🏆 Best                |
+| KNN         | **100% (Train)** | ⚠ Possible overfitting |
+| Naive Bayes | **89% (Test)**   | Good baseline          |
+
+---
+
+## 📈 Accuracy Comparison Graph
+
+---
+
+## 🔍 Key Insights
+
+* SVM performed the best with highest accuracy
+* KNN perfectly fitted training data but needs proper testing validation
+* Naive Bayes gave stable but lower performance
+* Dataset is clean with no missing values
+* Features are strongly related to lifestyle and medical conditions
+
+---
+
+## ⚠️ Important Note
+
+Achieving **100% accuracy** in real-world medical datasets is uncommon. It may indicate:
+
+* Possible overfitting
+* Data leakage
+* Highly structured dataset
+* Duplicate or correlated samples
+
+👉 For better evaluation, consider:
+
+* Confusion Matrix
+* Precision, Recall, F1-score
+* Cross-validation (K-Fold)
+* ROC-AUC Score
+
+---
+
+## 🚀 Future Improvements
+
+* Apply feature scaling (StandardScaler)
+* Perform hyperparameter tuning (GridSearchCV)
+* Use ensemble models (Random Forest, XGBoost)
+* Apply cross-validation
+* Build a web app using Streamlit or Flask
+* Deploy model for real-time prediction
+
+---
+
+## 📌 Conclusion
+
+This project successfully demonstrates the use of machine learning techniques for lung cancer risk prediction. The Support Vector Machine (SVM) achieved the highest performance with **100% accuracy**, making it the most suitable model for this dataset.
+
+The system can help in early identification of lung cancer risk levels based on patient health conditions and lifestyle factors, supporting medical decision-making.
+
+---
+
+## 👨‍💻 Technologies Used
+
+* Python 🐍
+* Pandas
 * NumPy
 * Matplotlib
-* ImageDataGenerator
+* Seaborn
+* Scikit-learn (SVM, KNN, Naive Bayes)
 
 ---
 
-# 📂 Dataset Structure
-
-The dataset should be organized as follows:
+## 📁 Project Structure
 
 ```
-skin_dataset_resized/
+Lung-Cancer-Prediction/
 │
-├── train_set/
-│   ├── Benign/
-│   └── Malignant/
-│
-└── val_set/
-    ├── Benign/
-    └── Malignant/
-```
-
-Update the dataset paths inside the code before running:
-
-```python
-train_dir = r'path_to_train_set'
-validation_dir = r'path_to_validation_set'
+├── dataset.csv
+├── lung_cancer_model.ipynb
+├── README.md
+└── plots/
+    ├── pie_chart.png
+    └── accuracy_graph.png
 ```
 
 ---
 
-# 📷 Image Preprocessing
+## ⭐ If you like this project
 
-The dataset is loaded using **ImageDataGenerator**.
-
-The preprocessing includes:
-
-* Rescaling pixel values from **0–255** to **0–1**
-* Image resizing to **150 × 150 pixels**
-* Batch size of **32**
-* Binary classification mode
-
-```python
-ImageDataGenerator(rescale=1./255)
-```
-
----
-
-# 🧠 CNN Architecture
-
-The proposed CNN consists of:
-
-| Layer      | Details                             |
-| ---------- | ----------------------------------- |
-| Input      | 150 × 150 × 3 RGB Image             |
-| Conv2D     | 32 Filters (3×3), ReLU              |
-| MaxPooling | 2×2                                 |
-| Conv2D     | 64 Filters (3×3), ReLU              |
-| MaxPooling | 2×2                                 |
-| Conv2D     | 128 Filters (3×3), ReLU             |
-| MaxPooling | 2×2                                 |
-| Conv2D     | 256 Filters (3×3), ReLU             |
-| MaxPooling | 2×2                                 |
-| Conv2D     | 512 Filters (3×3), ReLU             |
-| MaxPooling | 2×2                                 |
-| Flatten    | Converts feature maps into a vector |
-| Dense      | 128 neurons, ReLU                   |
-| Dropout    | 50%                                 |
-| Output     | 1 neuron, Sigmoid                   |
-
----
-
-# ⚙️ Model Compilation
-
-The model uses:
-
-* **Optimizer:** Adam
-* **Learning Rate:** 0.0001
-* **Loss Function:** Binary Crossentropy
-* **Evaluation Metric:** Accuracy
-
-```python
-model.compile(
-    optimizer=Adam(learning_rate=0.0001),
-    loss='binary_crossentropy',
-    metrics=['accuracy']
-)
-```
-
----
-
-# 💾 Model Checkpoint
-
-The best model is automatically saved whenever the validation loss improves.
-
-```python
-ModelCheckpoint(
-    'best_model.keras',
-    save_best_only=True,
-    monitor='val_loss',
-    mode='min'
-)
-```
-
----
-
-# 🚀 Model Training
-
-Training configuration:
-
-* Epochs: **15**
-* Batch Size: **32**
-* Optimizer: **Adam**
-* Validation Data Included
-* Best Model Saved Automatically
-
-```python
-history = model.fit(
-    train_generator,
-    epochs=15,
-    validation_data=validation_generator,
-    callbacks=[checkpoint]
-)
-```
-
----
-
-# 📊 Training Results
-
-Training Summary
-
-* Training Accuracy reached approximately **89%**
-* Validation Accuracy reached approximately **88%**
-* Lowest Validation Loss: **0.2033**
-* Best model saved as **best_model.keras**
-
-These results indicate that the CNN successfully learned meaningful image features for distinguishing between benign and malignant skin lesions.
-
----
-
-# 📈 Performance Visualization
-
-The project visualizes:
-
-* Training Accuracy
-* Validation Accuracy
-* Training Loss
-* Validation Loss
-
-using **Matplotlib**.
-
-```python
-plt.plot(history.history['accuracy'])
-plt.plot(history.history['val_accuracy'])
-```
-
-and
-
-```python
-plt.plot(history.history['loss'])
-plt.plot(history.history['val_loss'])
-```
-
-These graphs help monitor learning progress and identify potential overfitting or underfitting.
-
----
-
-# 📌 Output
-
-The trained model predicts whether a skin lesion belongs to:
-
-* **Benign**
-* **Malignant**
-
-The final trained model is stored as:
-
-```
-best_model.keras
-```
-
-which can later be loaded for prediction on unseen skin lesion images.
-
----
-
-# 📋 Future Improvements
-
-The current implementation can be enhanced by:
-
-* Applying data augmentation (rotation, flipping, zooming, brightness adjustment)
-* Using transfer learning models such as EfficientNet, ResNet50, MobileNetV2, or DenseNet121
-* Increasing the dataset size
-* Hyperparameter tuning
-* Implementing early stopping
-* Adding precision, recall, F1-score, confusion matrix, and ROC-AUC evaluation metrics
-* Building a Flask or Streamlit web application for real-time prediction
-
----
-
-# 📌 Conclusion
-
-This project demonstrates the application of Convolutional Neural Networks (CNNs) for binary skin cancer classification. The model effectively learns discriminative features from dermoscopic images and achieves approximately **89% training accuracy** with **88% validation accuracy**. By combining image preprocessing, deep CNN architecture, model checkpointing, and performance visualization, the system provides a reliable foundation for automated skin cancer detection. Future enhancements through transfer learning, data augmentation, and deployment as a web application can further improve accuracy and real-world usability.
+Give a ⭐ on GitHub and feel free to contribute!
